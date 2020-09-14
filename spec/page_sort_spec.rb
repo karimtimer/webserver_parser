@@ -1,5 +1,5 @@
 require 'page_sort'
-require 'pry-byebug'
+# require 'pry-byebug'
 
 describe PageSort do
 

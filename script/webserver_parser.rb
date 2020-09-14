@@ -10,9 +10,9 @@ unless ARGV[0] && File.file?(ARGV[0])
   puts 'usage: webserver_parser.rb <path to log file>'
 end
 
-# load the file data
+# load the file data into an array
 file_data = LoadLogData.new(ARGV[0]).data_loader
-# insantiate a new ParseLog
+# insantiate a new ParseLog with the file array
 parse_log = ParseLog.new(file_data)
 # obtain two hashes, one with the page and a visit count, the other with the page and its unique views
 page_views, unique_visits = parse_log.data_parser

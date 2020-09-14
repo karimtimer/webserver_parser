@@ -1,5 +1,5 @@
 require 'populator'
-require 'pry-byebug'
+# require 'pry-byebug'
 
 describe Populator do
   subject { Populator.new.output_array(data_hash, end_bit) }

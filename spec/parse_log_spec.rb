@@ -1,6 +1,6 @@
 require 'parse_log'
 require '../lib/load_log_data'
-require 'pry-byebug'
+# require 'pry-byebug'
 
 describe ParseLog do
   subject { ParseLog.new(file_data) }
