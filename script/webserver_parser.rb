@@ -1,14 +1,14 @@
 #!/usr/local/bin/ruby -w
-$:.unshift File.dirname(__FILE__)
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift File.dirname(__FILE__)
 require '../lib/load_log_data'
 require '../lib/parse_log'
 require '../lib/populator'
 require '../lib/page_sort'
 # require 'pry-byebug'
 
-unless ARGV[0] && File.file?(ARGV[0])
-  puts 'usage: webserver_parser.rb <path to log file>'
-end
+puts 'usage: webserver_parser.rb <path to log file>' unless ARGV[0] && File.file?(ARGV[0])
 
 # load the file data into an array
 file_data = LoadLogData.new(ARGV[0]).data_loader
@@ -18,16 +18,15 @@ parse_log = ParseLog.new(file_data)
 page_views, unique_visits = parse_log.data_parser
 
 # sort both hashes
-sorted_views = PageSort.new(page_views).sort_by_type(:count)
-sorted_uniques = PageSort.new(unique_visits).sort_by_type(:unique)
+sorted_views = PageSort.new(page_views).sort_by_type
+sorted_uniques = PageSort.new(unique_visits).sort_by_type
 
 # instatiate a new populator
 populate = Populator.new
 
 # populate both arrays for output
-visits_per_page = populate.output_array(sorted_views, "visits")
-unique_views = populate.output_array(sorted_uniques, "views")
-
+visits_per_page = populate.output_array(sorted_views, 'visits')
+unique_views = populate.output_array(sorted_uniques, 'views')
 
 puts '+--- Vists Per Page (Most -> Least) ----+'
 pp visits_per_page

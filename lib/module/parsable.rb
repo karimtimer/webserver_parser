@@ -1,8 +1,11 @@
 # frozen_string_literal: true
+
 require 'set'
 
+# This module will provide an object with its inclusion  with the abiliy to parse a log and
+# provide changes to its hashes.
 module Parsable
-  def log_parser row
+  def log_parser(row)
     page, ip_address = row.split(' ')
     if page_visits.key?(page)
       page_visits[page] += 1
@@ -12,10 +15,10 @@ module Parsable
     end
   end
 
-  def initial_page_encounter page, ip_address
+  def initial_page_encounter(page, ip_address)
     page_visits.store(page, 1)
     ip_addresses = Set.new
-    ip_addresses << ip_address 
+    ip_addresses << ip_address
     unique_views.store(page, ip_addresses)
   end
 end
