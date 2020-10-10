@@ -1,25 +1,26 @@
 # frozen_string_literal: true
 
-# require 'pry-byebug'
 require 'populator'
-# require 'pry-byebug'
+require 'page_sort'
 
 describe Populator do
-  subject { Populator.new.output_array(data_hash, end_bit) }
+  let(:page_views) { { 'page1' => 5 } }
+  let(:unique_visits) { { 'page1' => 2 } }
+  subject { Populator.new(page_views, unique_visits) }
 
-  describe '#output_array' do
+  describe '#output_for_type' do
+    before do
+      allow(PageSort).to receive(:page_views).and_return(page_views)
+      allow(PageSort).to receive(:page_views).and_return(unique_visits)
+    end
     context 'when outputing for page visits' do
-      let(:data_hash) { { "page1": 5, "page2": 2 } }
-      let(:end_bit) { 'visit' }
       it 'returns the page views string' do
-        expect(subject).to eq ['page1 5 visit', 'page2 2 visit']
+        expect(subject.output_for_type(page_views)).to eq ['page1                           5']
       end
     end
     context 'when outputing for unique views' do
-      let(:data_hash) { { "page1": 2, "page2": 1 } }
-      let(:end_bit) { 'unique views' }
       it 'returns the unique views string' do
-        expect(subject).to eq ['page1 2 unique views', 'page2 1 unique views']
+        expect(subject.output_for_type(unique_visits)).to eq ['page1                           2']
       end
     end
   end

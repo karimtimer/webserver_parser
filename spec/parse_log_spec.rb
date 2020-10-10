@@ -1,16 +1,11 @@
 # frozen_string_literal: true
 
-# require 'pry-byebug'
 require 'parse_log'
-require '../lib/load_log_data'
-# require 'pry-byebug'
 
 describe ParseLog do
   subject { ParseLog.new(file_data) }
 
   describe '#data_parser' do
-    before do
-    end
     context 'when parsing the file rows' do
       let(:file_data) { ['page/1 ipdiff', 'page/1 ipsame', 'page/1 ipsame'] }
       it 'returns a hash of each page and their visits' do
